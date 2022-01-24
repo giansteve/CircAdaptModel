@@ -1,4 +1,4 @@
-function SVar=Par2SVar(Par);
+function SVar=HrtPar2SVar(Par)
 %function SVar=Par2SVar(Par);
 % Theo Arts, Maastricht University, Eindhoven University of Technology,
 % April 3, 2004, email: t.arts@bf.unimaas.nl

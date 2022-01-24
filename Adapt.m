@@ -1,4 +1,4 @@
-function Par=Adapt(Par);
+function Par=Adapt(Par)
 %function Par=Adapt(Par);
 % Theo Arts, Maastricht University, Eindhoven University of Technology,
 % April 3, 2004, email: t.arts@bf.unimaas.nl

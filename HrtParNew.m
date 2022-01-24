@@ -1,5 +1,4 @@
-function Par=HrtParNew;
-% function Par=HrtParNew;
+function Par=HrtParNew
 % Theo Arts, Maastricht University, Eindhoven University of Technology,
 % April 3, 2004, email: t.arts@bf.unimaas.nl
 % Init: Initialization of simulation of hemodynamics and cardiac mechanics
@@ -11,12 +10,12 @@ function Par=HrtParNew;
 % Par contains sufficient information to start the problem
 % The structure of Par can be viewed by executing <MapStruct(Par)>
 
-%=== Initialization of Par
+%% === Initialization of Par
 Par.tEnd  = 1.0  ; % minimum duration of simulation (s), will be rounded to a complete cycle
 
 %==== used specific functions
 
-%==== GENERAL AT REST
+%% ==== GENERAL AT REST
 Par.q0        =1.00e-4     ; % Cardiac Output, mean systemic flow
 Par.p0        =12200       ; % mean systemic blood pressure
 Par.pDropPulm =1500        ; % pressure drop in pulmonary circulation
@@ -36,7 +35,7 @@ Par.Scal.Flow=q; Par.Scal.Volume=V;
 Par.Scale=[1,V,V,V,V,q,q,q,q,q,q,q,q,q,10*V,10*V,10*V,10*V,Ls,1,Ls,1,Ls,1,Ls,1]';
 %                                           column vector for scaling of SVariables
 
-%==== DEFAULTS
+%% ==== DEFAULTS
 
 %==== Default Valve properties
 Par.Valve.rhob=Par.rhob; % blood density
@@ -88,7 +87,7 @@ Par.Cavity.Sarc = Par.Sarc;
 Par.Cavity.rhob = Par.rhob; % blood density (kgm-3)
 
 
-%======================= SPECIFIC PROPERTIES =============================
+%% ======================= SPECIFIC PROPERTIES =============================
 
 %==== Mean Valve Flows for initial adaptation
 Par.ValveLVen= Par.Valve; % default
@@ -112,7 +111,8 @@ Par.ValveRAv.q=Par.ValveRVen.q+Par.ValveASD.q;
 Par.ValveLArt.q=Par.ValveLAv.q-Par.ValveVSD.q;
 Par.ValveRArt.q=Par.ValveRAv.q+Par.ValveVSD.q;
 Par.ValveDUCT.q=Par.ValveLVen.q-Par.ValveRArt.q;
-%==== TUBES
+
+%% ==== TUBES
 %==== Left Arteries= Aorta
 Par.TubeLArt      = Par.Tube           ; % Aorta as a tube
 Par.TubeLArt.p0   = Par.p0             ; % estimated mean pressure
@@ -145,7 +145,7 @@ Par.TubeRArt = TubeInit(Par.TubeRArt)  ; % Wall and lumen size adapted
 Par.LRp.R=(Par.TubeLArt.p0-Par.TubeLVen.p0)/Par.TubeLArt.q0; %set to normal
 Par.RRp.R=Par.pDropPulm/Par.TubeRArt.q0; %pulmonary resistance
 
-%==== VALVES
+%% ==== VALVES
 %==== Pulmonary venous outlet orifice
 Par.ValveLVen.AOpen   = Par.TubeLVen.A0; % venous orifice area
 Par.ValveLVen.ALeak   = Par.ValveLVen.AOpen; % orifice, slight valve function
@@ -192,7 +192,7 @@ Par.ValveASD.ALeak   = Par.ValveASD.AOpen;
 Par.ValveASD.Len     = 0.5*sqrt(Par.Tube.A0); % estimate of moving inertial mass
 
 
-%==== CAVITIES
+%% ==== CAVITIES
 %==== Left Atrial cavity, estimate for excercise
 Par.La        = Par.Cavity; % default
 Par.La.VStroke= 0.50*Par.ValveLAv.q*Par.tCycle;
@@ -223,7 +223,7 @@ Par.Rv.VStroke= 2.0*Par.Lv.VStroke    ;
 Par.Rv.pMax   = 2.1*Par.TubeRArt.p0   ; % maximum RV pressure for adaptation
 Par.Rv        = CavityGeometry(Par.Rv); % Adaptation of wall and cavity size
 
-%=========== SETTING INITIAL STATE
+%% =========== SETTING INITIAL STATE
 Par.t=0;
 
 %==== TUBES
@@ -232,7 +232,7 @@ Par.t=0;
 %==== VALVES
 %Par.Valve.q are already initialized to 0
 
-%==== SARCOMERES
+%% ==== SARCOMERES
 %==== Estimate of initial sarcomere length in wall of cavity
 Par.La         = CavityMech(Par.La)   ; % Estimate of initial sarcomere length and cavity volume
 Par.La.Sarc.Lsi= Par.La.Sarc.Ls-Par.La.Sarc.LenSeriesElement;
@@ -253,7 +253,7 @@ return
 
 
 % ============== Auxiliary functions ================
-function ParTube=TubeInit(ParTube);
+function ParTube=TubeInit(ParTube)
 ParTube.pMax = ParTube.p0+0.5*ParTube.rhob*ParTube.Adapt.vMax^2;
 ParTube=TubeAdapt(ParTube);
 ParTube.Len  = ParTube.Len*sqrt(ParTube.A0) ; % estimated effective tube windkessel length
@@ -262,7 +262,7 @@ ParTube=TubeAdapt(ParTube)        ; % Wall and lumen size adapted
 ParTube.V = ParTube.A0*ParTube.Len; %initial volume
 return
 
-function Par=CavityGeometry(Par);
+function Par=CavityGeometry(Par)
 %function Par=CavityGeometry(Par);
 %Simulates result of initial adaptation of cavity geometry to pump load
 %Par

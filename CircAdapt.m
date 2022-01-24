@@ -1,4 +1,4 @@
-function Par=CircAdapt(Par);
+function Par=CircAdapt(Par)
 %function Par=CircAdapt(Par);
 % Theo Arts, Maastricht University, Eindhoven University of Technology,
 % April 3, 2004, email: t.arts@bf.unimaas.nl
@@ -23,7 +23,7 @@ Par.Ra.Sarc.TimeAct         = Par.La.Sarc.TimeAct;
 SVar=HrtPar2SVar(Par); % setting initial condition of differential equation
 SVar=SVar(end,:);
 t=SVar(end,1); tEnd=t+Par.tEnd;
-while t<=tEnd; % solving 1 cardiac cycle each time
+while t<=tEnd % solving 1 cardiac cycle each time
     disp(['t=',num2str(t),';  Time to go= ',num2str(tEnd-t)]); pause(0.01);
     TimePoints=[0:Par.Dt:Par.tCycle]; % time interval to be added to the already existing solution
     %opt = odeset('RelTol',1e-4,'AbsTol',1e-5);

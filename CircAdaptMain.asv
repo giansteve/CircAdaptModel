@@ -64,7 +64,7 @@ else
             case('r') % reference
                 load ParRef;
                 c='i';
-            otherwise % new
+            otherwise 
                 Par=HrtParNew;
                 c='i';
         end
